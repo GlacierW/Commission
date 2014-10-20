@@ -51,3 +51,13 @@ TEST(CommisionMonthTest, WeakNormalThirdRankCommission ) {
 	// total = 7700
 	EXPECT_DOUBLE_EQ( 1400.0, get_commission_month(69, 79, 89) );
 }
+
+TEST(CommisionMonthTest, WeakRobustSale ) {
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, 1, 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, NB_STOCK_MIN - 1, 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, 1, NB_BARREL_MIN - 1) );
+	
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MAX + 1, 1, 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, NB_STOCK_MAX + 1, 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, 1, NB_BARREL_MAX + 1) );
+}
