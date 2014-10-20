@@ -21,5 +21,5 @@
 extern const int	SALE_RANK_THRESHOLD[SALE_RANKS];
 extern const double	SALE_COMMISSION_PERCENT[SALE_RANKS];
 
-extern double get_commission_month( int nb_lock, int nb_stock, int barrel );
+extern double get_commission_month( int nb_lock, int nb_stock, int nb_barrel );
 #endif
