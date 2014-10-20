@@ -31,3 +31,15 @@ TEST(CommisionMonthTest, WeakNormalFirstRankSale ) {
 	// total = 1000
 	EXPECT_DOUBLE_EQ( 100.0, get_commission_month(10, 10, 10) );
 }
+
+
+TEST(CommisionMonthTest, WeakNormalSecondRankSale ) {
+	// total = 1005
+	EXPECT_DOUBLE_EQ( 100.75, get_commission_month(9, 10, 12) );
+	
+	// total = 1795
+	EXPECT_DOUBLE_EQ( 219.25, get_commission_month(20, 19, 13) );
+	
+	// total = 1800
+	EXPECT_DOUBLE_EQ( 220.0, get_commission_month(20, 20, 12) );
+}
