@@ -61,3 +61,45 @@ TEST(CommisionMonthTest, WeakRobustSale ) {
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, NB_STOCK_MAX + 1, 1) );
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, 1, NB_BARREL_MAX + 1) );
 }
+
+TEST(CommisionMonthTest, StrongRobustSale ) {
+	// two min - 1
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, NB_STOCK_MIN - 1, 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, NB_STOCK_MIN - 1, NB_BARREL_MIN - 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, 1, NB_BARREL_MIN - 1) );
+	
+	// all min - 1
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, NB_STOCK_MIN - 1, NB_BARREL_MIN - 1) );
+	
+	/* ----------------------------------- */
+	
+	// two max + 1
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MAX + 1, NB_STOCK_MAX + 1, 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, NB_STOCK_MAX + 1, NB_BARREL_MAX + 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MAX + 1, 1, NB_BARREL_MAX + 1) );
+	
+	// all max + 1
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MAX + 1, NB_STOCK_MAX + 1, NB_BARREL_MAX + 1) );
+	
+	/* ----------------------------------- */
+	
+	// one min-1, one max+1, one normal
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, NB_STOCK_MAX + 1, 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MAX + 1, NB_STOCK_MIN - 1, 1) );
+	
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, 1, NB_BARREL_MAX + 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MAX + 1, 1, NB_BARREL_MIN - 1) );
+	
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, NB_STOCK_MIN - 1, NB_BARREL_MAX + 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, NB_STOCK_MAX + 1, NB_BARREL_MIN - 1) );
+	
+	// one min-1, two max+1
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, NB_STOCK_MAX + 1, NB_BARREL_MAX + 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MAX + 1, NB_STOCK_MIN - 1, NB_BARREL_MAX + 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MAX + 1, NB_STOCK_MAX + 1, NB_BARREL_MIN - 1) );
+	
+	// two min-1, one max+1
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MAX + 1, NB_STOCK_MIN - 1, NB_BARREL_MIN - 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, NB_STOCK_MAX + 1, NB_BARREL_MIN - 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, NB_STOCK_MIN - 1, NB_BARREL_MAX + 1) );
+}
