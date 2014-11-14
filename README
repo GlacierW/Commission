@@ -1,0 +1,21 @@
+Software testing example with TDD problem: Commission
+
+#####
+# File annotation
+#####
+1. gtest_main.cc:         main() entry point of google test
+2. commission.c:          target function to be tested
+3. commission_unittest.c: test cases with google testing framework
+
+#####
+# Execute the testing
+#####
+1. make
+2. ./gtest_commission
+
+#####
+# Generate coverage report
+#####
+1. ./gtest_commission
+2. gcov gtest_commission.c
+3. refer to the commission.c.gcov for the detail report 
