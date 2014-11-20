@@ -6,8 +6,8 @@ OBJ       = gtest_main.o commission.o commission_unittest.o
 LINKOBJ   = gtest_main.o commission.o commission_unittest.o
 LINKFLAGS = -lgtest -lpthread -lgcov
 BIN       = gtest_commission
-CXXFLAGS  = -Wall -O2 -fprofile-arcs -ftest-coverage
-CFLAGS    = -Wall -O2 -fprofile-arcs -ftest-coverage
+CXXFLAGS  = -Wall -fprofile-arcs -ftest-coverage
+CFLAGS    = -Wall -fprofile-arcs -ftest-coverage
 RM        = rm -f
 GCOV_FILE = *.gcno *.gcda *.gcov
 

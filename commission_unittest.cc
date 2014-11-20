@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
 #include "commission.h"
 
-TEST(CommisionMonthTest, NormalBoundarySale ) {
+TEST( CommissionSpecTest, NormalBoundarySale ) {
 	EXPECT_DOUBLE_EQ( 10.0, get_commission_month(1, 1, 1) );
 	EXPECT_DOUBLE_EQ( 1420.0, get_commission_month(NB_LOCK_MAX, NB_STOCK_MAX, NB_BARREL_MAX) );
 }
 
-TEST(CommisionMonthTest, NegativeSale ) {
+TEST( CommissionSpecTest, NegativeSale ) {
 	// one negative
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(-1, 1, 1) );
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, -1, 1) );
@@ -21,7 +21,7 @@ TEST(CommisionMonthTest, NegativeSale ) {
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(-1, -1, -1) );
 }
 
-TEST(CommisionMonthTest, WeakNormalFirstRankSale ) {
+TEST( CommissionSpecTest, WeakNormalFirstRankSale ) {
 	// total = 200
 	EXPECT_DOUBLE_EQ( 20.0, get_commission_month(2, 2, 2) );
 	
@@ -33,7 +33,7 @@ TEST(CommisionMonthTest, WeakNormalFirstRankSale ) {
 }
 
 
-TEST(CommisionMonthTest, WeakNormalSecondRankSale ) {
+TEST( CommissionSpecTest, WeakNormalSecondRankSale ) {
 	// total = 1005
 	EXPECT_DOUBLE_EQ( 100.75, get_commission_month(9, 10, 12) );
 	
@@ -44,7 +44,7 @@ TEST(CommisionMonthTest, WeakNormalSecondRankSale ) {
 	EXPECT_DOUBLE_EQ( 220.0, get_commission_month(20, 20, 12) );
 }
 
-TEST(CommisionMonthTest, WeakNormalThirdRankCommission ) {
+TEST( CommissionMonthTest, WeakNormalThirdRankCommission ) {
 	// total = 1805
 	EXPECT_DOUBLE_EQ( 221.0, get_commission_month(19, 20, 14) );
 	
@@ -52,7 +52,7 @@ TEST(CommisionMonthTest, WeakNormalThirdRankCommission ) {
 	EXPECT_DOUBLE_EQ( 1400.0, get_commission_month(69, 79, 89) );
 }
 
-TEST(CommisionMonthTest, WeakRobustSale ) {
+TEST( CommissionSpecTest, WeakRobustSale ) {
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, 1, 1) );
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, NB_STOCK_MIN - 1, 1) );
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, 1, NB_BARREL_MIN - 1) );
@@ -62,7 +62,7 @@ TEST(CommisionMonthTest, WeakRobustSale ) {
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, 1, NB_BARREL_MAX + 1) );
 }
 
-TEST(CommisionMonthTest, StrongRobustSale ) {
+TEST( CommissionSpecTest, StrongRobustSale ) {
 	// two min - 1
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, NB_STOCK_MIN - 1, 1) );
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, NB_STOCK_MIN - 1, NB_BARREL_MIN - 1) );
@@ -102,4 +102,32 @@ TEST(CommisionMonthTest, StrongRobustSale ) {
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MAX + 1, NB_STOCK_MIN - 1, NB_BARREL_MIN - 1) );
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, NB_STOCK_MAX + 1, NB_BARREL_MIN - 1) );
 	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, NB_STOCK_MIN - 1, NB_BARREL_MAX + 1) );
+}
+
+TEST( CommissionCodeTest, CodeCoverageC0) {
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, 1, 1) );
+	EXPECT_DOUBLE_EQ( 1400.0, get_commission_month(69, 79, 89) );
+}
+
+TEST( CommissionCodeTest, CodeCoverageC1) {
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, 1, 1) );
+	EXPECT_DOUBLE_EQ( 220.0, get_commission_month(20, 20, 12) );
+	EXPECT_DOUBLE_EQ( 1400.0, get_commission_month(69, 79, 89) );
+}
+
+TEST( CommissionCodeTest, CodeCoverageC2) {
+    EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, 1, 1) );
+	EXPECT_DOUBLE_EQ( 100.0, get_commission_month(10, 10, 10) );
+	EXPECT_DOUBLE_EQ( 220.0, get_commission_month(20, 20, 12) );
+	EXPECT_DOUBLE_EQ( 1400.0, get_commission_month(69, 79, 89) );
+}
+
+TEST( CommissionCodeTest, CodeCoverageMCDC) {
+    EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MIN - 1, 1, 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, NB_STOCK_MIN - 1, 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, 1, NB_BARREL_MIN - 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(NB_LOCK_MAX + 1, 1, 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, NB_STOCK_MAX + 1, 1) );
+	EXPECT_DOUBLE_EQ( ERR_INVALID_SALE, get_commission_month(1, 1, NB_BARREL_MAX + 1) );
+    EXPECT_DOUBLE_EQ( 220.0, get_commission_month(20, 20, 12) );
 }

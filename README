@@ -11,11 +11,11 @@ Software testing example with TDD problem: Commission
 # Execute the testing
 #####
 1. make
-2. ./gtest_commission
+2. ./gtest_commission --gtest_filter=CommissionSpecTest.*
 
 #####
 # Generate coverage report
 #####
-1. ./gtest_commission
-2. gcov gtest_commission.c
+1. ./gtest_commission --gtest_filter=CommissionCodeTest.CodeCoverage/(C0 | C1 | C2 | MCDC)/
+2. gcov -b -c gtest_commission.c
 3. refer to the commission.c.gcov for the detail report 
